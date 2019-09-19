@@ -12,10 +12,11 @@ for humans to reason about code.
 
 However, we can create code that is easier to maintain, clearer and more
 beautiful if we wrap "First-Order" methods inside of _other methods_. In the
-same way that we used "raw" `[]` and `Hash` and `Array` methods _inside_
-"First-Order" methods, we can use "First-Order" methods _inside_ other methods.
+same way that we nested "raw" `[]`,  `Hash`, and `Array` methods _inside_
+"First-Order" methods, we can nest "First-Order" methods _inside_ other
+methods.
 
-When code is structured this way there are many benefits:
+When code is structured this way, there are many benefits:
 
 * It's easier to debug
 * It's more obvious to read
@@ -85,7 +86,7 @@ up".  That is, "**total up the row based on its spinners**." Wouldn't it be
 GREAT if there were a method called `total_snack_pieces_in_row`? Again, there's
 nothing stopping us from making it!
 
-***But here's the crucial insight about how we'll write that code***: a row is
+***Here's the crucial insight about how we'll write the new method***: a row is
 made up of spinners. So all we have to do to total a row's snack count is add
 together the snack counts of its spinners. Let's update the code:
 
@@ -125,8 +126,8 @@ p grand_piece_total #=> 1192
 
 ## Wrap an Additional Method
 
-Suddenly all that's left in our code that's not "inside" a method is the
-following:
+Suddenly all that's left in our original kinda-messy "raw" implementation  is
+the following:
 
 ```ruby
 # Non-Runnable
@@ -139,23 +140,12 @@ while row_index < vm.length do
 end
 ```
 
-But this bit of code has a purpose. What does this code _mean_. What is it
+But this bit of code has a purpose. What does this code _mean_? What is it
 trying to accomplish?
 
-Isn't it "`total_snack_pieces_in_machine`?" And, just as before, isn't the
-total number of pieces in the machine the sum of all the pieces in the rows
-(which we just conveniently gained the ability to calculate)? We're now going
-to "wrap" `total_snack_pieces_in_row` into a new method:
-`total_snack_pieces_in_machine`.
-
-> It might be tempting to call `total_snack_pieces_on_spinner` a "Second-Order"
-> method. And it certainly is! Most programmers would recognize this idea. But
-> programmers don't generally go around applying labels like this to methods.
-> To do so would be, frankly, silly at some point. 
->
-> If we wrap multiple Second-Order methods do we get a Third-Order? A
-> Fourth-Order? A HundredAndFirst Order?  The main idea here is that methods
-> can **nest** just like data structures.
+Isn't it "sum up the counts of all the rows" the same thing as seeking
+"`total_snack_pieces_in_machine`?" Just as before, we're going to "wrap"
+`total_snack_pieces_in_row` into a new method: `total_snack_pieces_in_machine`.
 
 ```ruby
 vm = [[[{:name=>"Vanilla Cookies", :pieces=>3}, {:name=>"Pistachio Cookies", :pieces=>3}, {:name=>"Chocolate Cookies", :pieces=>3}, {:name=>"Chocolate Chip Cookies", :pieces=>3}], [{:name=>"Tooth-Melters", :pieces=>12}, {:name=>"Tooth-Destroyers", :pieces=>12}, {:name=>"Enamel Eaters", :pieces=>12}, {:name=>"Dentist's Nighmare", :pieces=>20}], [{:name=>"Gummy Sour Apple", :pieces=>3}, {:name=>"Gummy Apple", :pieces=>5}, {:name=>"Gummy Moldy Apple", :pieces=>1}]], [[{:name=>"Grape Drink", :pieces=>1}, {:name=>"Orange Drink", :pieces=>1}, {:name=>"Pineapple Drink", :pieces=>1}], [{:name=>"Mints", :pieces=>13}, {:name=>"Curiously Toxic Mints", :pieces=>1000}, {:name=>"US Mints", :pieces=>99}]]]
@@ -194,13 +184,15 @@ end
 p total_snack_pieces_in_machine(vm) #=> 1192
 ```
 
-Wow! That's really handy! We have **three** helpful methods that will help hide
-away complexity and keep our code readable and maintainable.
+Wow! That's really handy! Instead of one triple-nested `while` loop, we now
+have **three** helpful methods that will help hide away complexity and keep our
+code readable and maintainable.
 
-From the perspective of generating _insight_, our code knows what _insight_ we
-want and makes it easy to find by calling a method whose name immediately
-suggest the _insight_ we want: `total_snack_pieces_in_machine`. The method
-then, internally, uses _other_ methods to help keep itself clean and simple:
+From the perspective of generating _insight_, our code knows what _insight_
+**we** want and what _insight_ **it is ready to share**. This code makes it
+easy to find by calling a method whose name immediately suggest the _insight_
+we want: `total_snack_pieces_in_machine`. The method then, internally, uses
+_other_ methods to help keep itself clean and simple:
 
 ```text
 total_snack_pieces_in_machine
@@ -210,7 +202,8 @@ total_snack_pieces_in_machine
 
 ## Lab
 
-In the lab you're going to write a method that uses First-Order methods.
+In the lab you're going to write a method that uses First-Order methods to do
+its work.
 
 ## Conclusion
 
