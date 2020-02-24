@@ -60,7 +60,7 @@ def total_gross(source)
     grand_total += dir_earnings[name]
     i += 1
   end
-    grand_total
+    grand_total 
 end
 
 
